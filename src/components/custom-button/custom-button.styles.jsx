@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 const getButtonStyles = (props) => {
   if (props.isGoogleSignIn) {
@@ -14,7 +14,7 @@ const googleSignInStyles = css`
 
   &:hover {
     background-color: #357ea8;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0);
   }
 `;
 
@@ -26,14 +26,14 @@ const invertedButtonStyles = css`
   &:hover {
     background-color: black;
     color: white;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0);
   }
 `;
 
 const buttonStyles = css`
   background-color: black;
   color: white;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0);
 
   &:hover {
     background-color: white;

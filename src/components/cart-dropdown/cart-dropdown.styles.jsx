@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import CustomButton from "../custom-button/custom-button.component";
 
 export const CartDropdownContainer = styled.div`
