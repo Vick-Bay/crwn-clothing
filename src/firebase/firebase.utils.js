@@ -9,7 +9,7 @@ const config = {
   projectId: "crw-db-43a8a",
   storageBucket: "crw-db-43a8a.appspot.com",
   messagingSenderId: "424574611864",
-  appId: "1:424574611864:web:dacc521a4ad41fc5937bed"
+  appId: "1:424574611864:web:dacc521a4ad41fc5937bed",
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -28,7 +28,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log("error creating user", error.message);
@@ -36,6 +36,23 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log(collectionRef);
+
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
 };
 
 firebase.initializeApp(config);
