@@ -12,6 +12,7 @@ const config = {
   appId: "1:424574611864:web:dacc521a4ad41fc5937bed",
 };
 
+// function to create a new user profile
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -38,6 +39,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+//function used to add a collection to the firebase backend based on Shop Data
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
@@ -53,6 +55,24 @@ export const addCollectionAndDocuments = async (
   });
 
   return await batch.commit();
+};
+
+//function to get data from firebase database and convert it to an object
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 firebase.initializeApp(config);
